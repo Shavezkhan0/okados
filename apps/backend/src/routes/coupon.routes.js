@@ -9,13 +9,13 @@ const couponController = require('../controllers/coupon.controller');
 const auth = require('../middlewares/auth.middleware');
 const { isAdmin } = require('../middlewares/authorization.middleware');
 
-router.get('/valid', auth, couponController.getValidCoupons);
-router.post('/validate', auth, couponController.validateCoupon);
+router.get('/valid', auth.authenticate, couponController.getValidCoupons);
+router.post('/validate', auth.authenticate, couponController.validateCoupon);
 
-router.get('/', auth, isAdmin, couponController.getCoupons);
-router.post('/', auth, isAdmin, couponController.createCoupon);
-router.put('/:id', auth, isAdmin, couponController.updateCoupon);
-router.delete('/:id', auth, isAdmin, couponController.deleteCoupon);
-router.put('/:id/toggle', auth, isAdmin, couponController.toggleCouponStatus);
+router.get('/', auth.authenticate, isAdmin, couponController.getCoupons);
+router.post('/', auth.authenticate, isAdmin, couponController.createCoupon);
+router.put('/:id', auth.authenticate, isAdmin, couponController.updateCoupon);
+router.delete('/:id', auth.authenticate, isAdmin, couponController.deleteCoupon);
+router.put('/:id/toggle', auth.authenticate, isAdmin, couponController.toggleCouponStatus);
 
 module.exports = router;

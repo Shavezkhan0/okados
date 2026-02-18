@@ -10,15 +10,15 @@ const auth = require('../middlewares/auth.middleware');
 const validate = require('../middlewares/validation.middleware');
 const { addAddressValidator, addressIdValidator } = require('../validators/user.validator');
 
-router.use(auth);
+router.use(auth.authenticate);
 
 router.get('/profile', userController.getProfile);
-router.put('/profile', validate(addAddressValidator), userController.updateProfile);
+router.put('/profile', validate([addAddressValidator]), userController.updateProfile);
 
 router.get('/addresses', userController.getAddresses);
-router.post('/address', validate(addAddressValidator), userController.addAddress);
-router.put('/address/:addressId', validate(addressIdValidator), userController.updateAddress);
-router.delete('/address/:addressId', validate(addressIdValidator), userController.deleteAddress);
+router.post('/address', validate([addAddressValidator]), userController.addAddress);
+router.put('/address/:addressId', validate([addressIdValidator]), userController.updateAddress);
+router.delete('/address/:addressId', validate([addressIdValidator]), userController.deleteAddress);
 
 router.put('/fcm-token', userController.updateFCMToken);
 

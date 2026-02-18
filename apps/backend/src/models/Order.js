@@ -87,7 +87,6 @@ const deliveryAddressSchema = new mongoose.Schema({
     coordinates: {
       type: [Number],
     },
-    index: '2dsphere',
   },
 }, { _id: false });
 
@@ -338,6 +337,7 @@ orderSchema.index({ restaurantId: 1, createdAt: -1 });
 orderSchema.index({ status: 1, createdAt: -1 });
 orderSchema.index({ createdAt: -1 });
 orderSchema.index({ 'payment.status': 1 });
+orderSchema.index({ 'deliveryAddress.coordinates': '2dsphere' });
 
 /**
  * Generate unique order number

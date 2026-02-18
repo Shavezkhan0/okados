@@ -11,12 +11,12 @@ const { isAdmin } = require('../middlewares/authorization.middleware');
 
 router.get('/restaurant/:restaurantId', reviewController.getRestaurantReviews);
 router.get('/product/:productId', reviewController.getProductReviews);
-router.get('/my-reviews', auth, reviewController.getMyReviews);
+router.get('/my-reviews', auth.authenticate, reviewController.getMyReviews);
 
-router.post('/', auth, reviewController.createReview);
-router.get('/', auth, isAdmin, reviewController.getAllReviews);
-router.put('/:id', auth, reviewController.updateReview);
-router.delete('/:id', auth, reviewController.deleteReview);
-router.post('/:id/report', auth, reviewController.reportReview);
+router.post('/', auth.authenticate, reviewController.createReview);
+router.get('/', auth.authenticate, isAdmin, reviewController.getAllReviews);
+router.put('/:id', auth.authenticate, reviewController.updateReview);
+router.delete('/:id', auth.authenticate, reviewController.deleteReview);
+router.post('/:id/report', auth.authenticate, reviewController.reportReview);
 
 module.exports = router;

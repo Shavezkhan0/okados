@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
   try {
+    console.log(process.env.MONGODB_URI);
     const conn = await mongoose.connect(process.env.MONGODB_URI, {
       maxPoolSize: 10,
       serverSelectionTimeoutMS: 5000,
@@ -27,4 +28,4 @@ mongoose.connection.on('error', (err) => {
   console.error('MongoDB error:', err);
 });
 
-module.exports = connectDB;
+module.exports = { connectDB };

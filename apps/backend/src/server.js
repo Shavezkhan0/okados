@@ -11,7 +11,9 @@ const path = require('path');
 
 const app = require('./app');
 const { connectDB } = require('./config/database');
+console.log("redit 1");
 const { connectRedis } = require('./config/redis');
+console.log("redit 2");
 const { initFirebase } = require('./config/firebase');
 const { initializeSocket } = require('./sockets');
 const { startJobs } = require('./jobs');

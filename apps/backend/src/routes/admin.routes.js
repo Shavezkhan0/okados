@@ -9,7 +9,7 @@ const adminController = require('../controllers/admin.controller');
 const auth = require('../middlewares/auth.middleware');
 const { isAdmin } = require('../middlewares/authorization.middleware');
 
-router.use(auth, isAdmin);
+router.use(auth.authenticate, isAdmin);
 
 router.get('/dashboard', adminController.getDashboard);
 router.get('/analytics', adminController.getAnalytics);

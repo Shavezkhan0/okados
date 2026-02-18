@@ -3,7 +3,7 @@ const redis = require("redis");
 const redisClient = redis.createClient({
   url: process.env.REDIS_URL,
   socket: {
-    tls: true, // REQUIRED for Redis Cloud
+    // tls: true, // REQUIRED for Redis Cloud
     reconnectStrategy: (retries) => {
       if (retries > 10) {
         console.error("Redis reconnect failed");
