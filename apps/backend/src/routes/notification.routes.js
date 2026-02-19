@@ -1,13 +1,9 @@
-/**
- * Notification Routes
- * @module routes/notification.routes
- */
-
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const notificationController = require('../controllers/notification.controller');
-const { authenticate } = require('../middlewares/auth.middleware');
-const { isAdmin } = require('../middlewares/authorization.middleware');
+
+import notificationController from '../controllers/notification.controller.js';
+import { authenticate } from '../middlewares/auth.middleware.js';
+import { isAdmin } from '../middlewares/authorization.middleware.js';
 
 router.use(authenticate);
 
@@ -30,4 +26,4 @@ router.post('/broadcast', isAdmin, notificationController.broadcastNotification)
 
 router.delete('/cleanup', isAdmin, notificationController.cleanupOldNotifications);
 
-module.exports = router;
+export default router;

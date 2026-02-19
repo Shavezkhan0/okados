@@ -3,7 +3,7 @@
  * @module sockets/restaurant.socket
  */
 
-const {
+import {
   getIO,
   emitToUser,
   emitToRestaurant,
@@ -11,14 +11,14 @@ const {
   broadcastToAll,
   generateRoomName,
   ROOM_TYPES,
-} = require('./index');
+} from './index.js';
 
 const logger = {
   info: (message, meta = {}) => console.log(`[RESTAURANT SOCKET] ${message}`, meta),
   error: (message, meta = {}) => console.error(`[RESTAURANT SOCKET ERROR] ${message}`, meta),
 };
 
-const Restaurant = require('../models/Restaurant');
+import Restaurant from '../models/Restaurant.js';
 
 const emitRestaurantStatusChanged = async (restaurantId, isOpen) => {
   try {
@@ -235,7 +235,7 @@ const setupRestaurantSocketHandlers = (socket) => {
 
   socket.on('restaurant:get-orders', async (status, callback) => {
     try {
-      const Order = require('../models/Order');
+      const Order = (await import('../models/Order.js')).default;
       
       if (socket.userRole !== 'restaurant') {
         return callback?.({ success: false, error: 'Not authorized' });
@@ -260,7 +260,7 @@ const setupRestaurantSocketHandlers = (socket) => {
 
   socket.on('restaurant:get-stats', async (callback) => {
     try {
-      const Order = require('../models/Order');
+      const Order = (await import('../models/Order.js')).default;
       
       if (socket.userRole !== 'restaurant') {
         return callback?.({ success: false, error: 'Not authorized' });
@@ -281,7 +281,7 @@ const setupRestaurantSocketHandlers = (socket) => {
         Order.aggregate([
           {
             $match: {
-              restaurant: require('mongoose').Types.ObjectId(socket.restaurantId),
+              restaurant: (await import('mongoose')).default.Types.ObjectId(socket.restaurantId),
               status: 'delivered',
             }
           },
@@ -314,7 +314,7 @@ const setupRestaurantSocketHandlers = (socket) => {
         return callback?.({ success: false, error: 'Not authorized' });
       }
 
-      const Product = require('../models/Product');
+      const Product = (await import('../models/Product.js')).default;
       
       const product = await Product.findOneAndUpdate(
         { _id: productId, restaurantId: socket.restaurantId },
@@ -342,7 +342,7 @@ const setupRestaurantSocketHandlers = (socket) => {
   });
 };
 
-module.exports = {
+export {
   emitRestaurantStatusChanged,
   emitRestaurantUpdated,
   emitProductAvailabilityChanged,

@@ -1,6 +1,6 @@
-const { check, validationResult } = require('express-validator');
+import { check, validationResult } from 'express-validator';
 
-const validate = (validations) => {
+export const validate = (validations) => {
   return async (req, res, next) => {
     for (let validation of validations) {
       const result = await validation.run(req);
@@ -17,29 +17,21 @@ const validate = (validations) => {
   };
 };
 
-const isValidEmail = (email) => {
+export const isValidEmail = (email) => {
   const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return re.test(email);
 };
 
-const isValidPhone = (phone) => {
+export const isValidPhone = (phone) => {
   const re = /^\+?[1-9]\d{1,14}$/;
   return re.test(phone);
 };
 
-const isValidPassword = (password) => {
+export const isValidPassword = (password) => {
   return password.length >= 8;
 };
 
-const isValidObjectId = (id) => {
+export const isValidObjectId = (id) => {
   const re = /^[0-9a-fA-F]{24}$/;
   return re.test(id);
-};
-
-module.exports = {
-  validate,
-  isValidEmail,
-  isValidPhone,
-  isValidPassword,
-  isValidObjectId,
 };

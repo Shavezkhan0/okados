@@ -1,21 +1,17 @@
-/**
- * Coupon Routes
- * @module routes/coupon.routes
- */
-
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const couponController = require('../controllers/coupon.controller');
-const auth = require('../middlewares/auth.middleware');
-const { isAdmin } = require('../middlewares/authorization.middleware');
 
-router.get('/valid', auth.authenticate, couponController.getValidCoupons);
-router.post('/validate', auth.authenticate, couponController.validateCoupon);
+import couponController from '../controllers/coupon.controller.js';
+import { authenticate } from '../middlewares/auth.middleware.js';
+import { isAdmin } from '../middlewares/authorization.middleware.js';
 
-router.get('/', auth.authenticate, isAdmin, couponController.getCoupons);
-router.post('/', auth.authenticate, isAdmin, couponController.createCoupon);
-router.put('/:id', auth.authenticate, isAdmin, couponController.updateCoupon);
-router.delete('/:id', auth.authenticate, isAdmin, couponController.deleteCoupon);
-router.put('/:id/toggle', auth.authenticate, isAdmin, couponController.toggleCouponStatus);
+router.get('/valid', authenticate, couponController.getValidCoupons);
+router.post('/validate', authenticate, couponController.validateCoupon);
 
-module.exports = router;
+router.get('/', authenticate, isAdmin, couponController.getCoupons);
+router.post('/', authenticate, isAdmin, couponController.createCoupon);
+router.put('/:id', authenticate, isAdmin, couponController.updateCoupon);
+router.delete('/:id', authenticate, isAdmin, couponController.deleteCoupon);
+router.put('/:id/toggle', authenticate, isAdmin, couponController.toggleCouponStatus);
+
+export default router;

@@ -1,26 +1,16 @@
-/**
- * Auth Controller
- * Handles authentication-related operations
- * @module controllers/auth.controller
- */
-
-const User = require('../models/User');
-const ApiResponse = require('../utils/response');
-const asyncHandler = require('../utils/asyncHandler');
-const authService = require('../services/auth.service');
-const smsService = require('../services/sms.service');
-const emailService = require('../services/email.service');
+import User from '../models/User.js';
+import ApiResponse from '../utils/response.js';
+import asyncHandler from '../utils/asyncHandler.js';
+import authService from '../services/auth.service.js';
+import smsService from '../services/sms.service.js';
+import emailService from '../services/email.service.js';
+import crypto from 'crypto';
 
 const logger = {
   info: (message, meta = {}) => console.log(`[AUTH CONTROLLER] ${message}`, meta),
   error: (message, meta = {}) => console.error(`[AUTH CONTROLLER ERROR] ${message}`, meta),
 };
 
-/**
- * @desc Register a new user
- * @route POST /api/v1/auth/register
- * @access Public
- */
 const register = asyncHandler(async (req, res) => {
   const { name, email, phone, password } = req.body;
 
@@ -71,11 +61,6 @@ const register = asyncHandler(async (req, res) => {
   }, 'Registration successful. Please verify your phone number.');
 });
 
-/**
- * @desc Login user
- * @route POST /api/v1/auth/login
- * @access Public
- */
 const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
@@ -121,11 +106,6 @@ const login = asyncHandler(async (req, res) => {
   ApiResponse.success(res, response, 'Login successful');
 });
 
-/**
- * @desc Refresh access token
- * @route POST /api/v1/auth/refresh-token
- * @access Public
- */
 const refreshToken = asyncHandler(async (req, res) => {
   const { refreshToken: token } = req.body;
 
@@ -158,11 +138,6 @@ const refreshToken = asyncHandler(async (req, res) => {
   }
 });
 
-/**
- * @desc Verify OTP
- * @route POST /api/v1/auth/verify-otp
- * @access Public
- */
 const verifyOTP = asyncHandler(async (req, res) => {
   const { phone, otp } = req.body;
 
@@ -197,11 +172,6 @@ const verifyOTP = asyncHandler(async (req, res) => {
   ApiResponse.success(res, { isVerified: true }, 'Phone number verified successfully');
 });
 
-/**
- * @desc Resend OTP
- * @route POST /api/v1/auth/resend-otp
- * @access Public
- */
 const resendOTP = asyncHandler(async (req, res) => {
   const { phone } = req.body;
 
@@ -236,11 +206,6 @@ const resendOTP = asyncHandler(async (req, res) => {
   ApiResponse.success(res, { otp: otpInResponse }, 'OTP sent successfully');
 });
 
-/**
- * @desc Forgot password
- * @route POST /api/v1/auth/forgot-password
- * @access Public
- */
 const forgotPassword = asyncHandler(async (req, res) => {
   const { email } = req.body;
 
@@ -265,20 +230,25 @@ const forgotPassword = asyncHandler(async (req, res) => {
 
   logger.info('Password reset email sent', { userId: user._id });
 
+  // For development/testing: return token in response
+  const isDev = process.env.NODE_ENV !== 'production';
+  if (isDev) {
+    return ApiResponse.success(res, { 
+      resetToken: plainToken,
+      resetUrl: resetUrl,
+      message: 'Development mode: Token included in response' 
+    });
+  }
+
   ApiResponse.success(res, {}, 'If an account exists with this email, you will receive a password reset link');
 });
 
-/**
- * @desc Reset password
- * @route POST /api/v1/auth/reset-password
- * @access Public
- */
 const resetPassword = asyncHandler(async (req, res) => {
   const { token, password } = req.body;
 
   logger.info('Password reset attempt');
 
-  const hashedToken = require('crypto').createHash('sha256').update(token).digest('hex');
+  const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
 
   const user = await User.findOne({
     resetPasswordToken: hashedToken,
@@ -302,11 +272,6 @@ const resetPassword = asyncHandler(async (req, res) => {
   ApiResponse.success(res, {}, 'Password reset successful. Please login with your new password');
 });
 
-/**
- * @desc Change password
- * @route PUT /api/v1/auth/change-password
- * @access Private
- */
 const changePassword = asyncHandler(async (req, res) => {
   const { currentPassword, newPassword } = req.body;
   const userId = req.user._id;
@@ -339,11 +304,6 @@ const changePassword = asyncHandler(async (req, res) => {
   ApiResponse.success(res, {}, 'Password changed successfully');
 });
 
-/**
- * @desc Get current user profile
- * @route GET /api/v1/auth/me
- * @access Private
- */
 const getMe = asyncHandler(async (req, res) => {
   const userId = req.user._id;
 
@@ -358,11 +318,6 @@ const getMe = asyncHandler(async (req, res) => {
   ApiResponse.success(res, { user }, 'Profile retrieved successfully');
 });
 
-/**
- * @desc Logout user
- * @route POST /api/v1/auth/logout
- * @access Private
- */
 const logout = asyncHandler(async (req, res) => {
   const userId = req.user?._id;
 
@@ -371,7 +326,20 @@ const logout = asyncHandler(async (req, res) => {
   ApiResponse.success(res, {}, 'Logged out successfully');
 });
 
-module.exports = {
+export {
+  register,
+  login,
+  refreshToken,
+  verifyOTP,
+  resendOTP,
+  forgotPassword,
+  resetPassword,
+  changePassword,
+  getMe,
+  logout,
+};
+
+export default {
   register,
   login,
   refreshToken,

@@ -4,7 +4,7 @@
  * @module models/Order
  */
 
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const orderItemCustomizationSchema = new mongoose.Schema({
   name: {
@@ -598,4 +598,4 @@ orderSchema.statics.getStats = async function (restaurantId, startDate, endDate)
 
 const Order = mongoose.model('Order', orderSchema);
 
-module.exports = Order;
+export default Order;

@@ -1,14 +1,10 @@
-/**
- * Payment Routes
- * @module routes/payment.routes
- */
-
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const paymentController = require('../controllers/payment.controller');
-const { authenticate } = require('../middlewares/auth.middleware');
-const { isAdmin } = require('../middlewares/authorization.middleware');
-const validate = require('../middlewares/validation.middleware');
+
+import paymentController from '../controllers/payment.controller.js';
+import { authenticate } from '../middlewares/auth.middleware.js';
+import { isAdmin } from '../middlewares/authorization.middleware.js';
+import validate from '../middlewares/validation.middleware.js';
 
 router.post(
   '/webhook',
@@ -27,4 +23,4 @@ router.get('/:orderId/details', paymentController.getPaymentDetails);
 
 router.post('/refund', isAdmin, paymentController.initiateRefund);
 
-module.exports = router;
+export default router;

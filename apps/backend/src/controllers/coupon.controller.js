@@ -4,11 +4,11 @@
  * @module controllers/coupon.controller
  */
 
-const Coupon = require('../models/Coupon');
-const Order = require('../models/Order');
-const ApiResponse = require('../utils/response');
-const asyncHandler = require('../utils/asyncHandler');
-const { getPaginationMeta } = require('../utils/helpers');
+import Coupon from '../models/Coupon.js';
+import Order from '../models/Order.js';
+import ApiResponse from '../utils/response.js';
+import asyncHandler from '../utils/asyncHandler.js';
+import { getPaginationMeta } from '../utils/helpers.js';
 
 /**
  * @desc Get all coupons (Admin)
@@ -190,7 +190,7 @@ const toggleCouponStatus = asyncHandler(async (req, res) => {
   ApiResponse.success(res, { isActive: coupon.isActive }, `Coupon is now ${coupon.isActive ? 'active' : 'inactive'}`);
 });
 
-module.exports = {
+export default {
   getCoupons,
   getValidCoupons,
   validateCoupon,

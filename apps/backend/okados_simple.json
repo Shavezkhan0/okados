@@ -1,0 +1,38 @@
+{
+  "info": {
+    "name": "Okados API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth - Register",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:5000/api/v1/auth/register",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {"mode": "raw", "raw": "{\"name\":\"Test\",\"email\":\"test@test.com\",\"phone\":\"+1234567890\",\"password\":\"test123456\"}"}
+      }
+    },
+    {
+      "name": "Auth - Login",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:5000/api/v1/auth/login",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {"mode": "raw", "raw": "{\"email\":\"test@test.com\",\"password\":\"test123456\"}"}
+      }
+    },
+    {
+      "name": "Health Check",
+      "request": {"method": "GET", "url": "http://localhost:5000/api/v1/health"}
+    },
+    {
+      "name": "Restaurants - All",
+      "request": {"method": "GET", "url": "http://localhost:5000/api/v1/restaurants"}
+    },
+    {
+      "name": "Products - Categories",
+      "request": {"method": "GET", "url": "http://localhost:5000/api/v1/products/categories"}
+    }
+  ]
+}

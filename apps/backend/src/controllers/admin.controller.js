@@ -4,20 +4,21 @@
  * @module controllers/admin.controller
  */
 
-const mongoose = require('mongoose');
-const User = require('../models/User');
-const Restaurant = require('../models/Restaurant');
-const Order = require('../models/Order');
-const Product = require('../models/Product');
-const Banner = require('../models/Banner');
-const Review = require('../models/Review');
-const Coupon = require('../models/Coupon');
-const ApiResponse = require('../utils/response');
-const asyncHandler = require('../utils/asyncHandler');
-const analyticsService = require('../services/analytics.service');
-const emailService = require('../services/email.service');
-const notificationService = require('../services/notification.service');
-const { exportToCSV } = require('../utils/helpers');
+import mongoose from 'mongoose';
+import User from '../models/User.js';
+import Restaurant from '../models/Restaurant.js';
+import Order from '../models/Order.js';
+import Product from '../models/Product.js';
+import Banner from '../models/Banner.js';
+import Review from '../models/Review.js';
+import Coupon from '../models/Coupon.js';
+import ApiResponse from '../utils/response.js';
+import asyncHandler from '../utils/asyncHandler.js';
+import analyticsService from '../services/analytics.service.js';
+import emailService from '../services/email.service.js';
+import notificationService from '../services/notification.service.js';
+import cloudinaryService from '../services/cloudinary.service.js';
+import { exportToCSV } from '../utils/helpers.js';
 
 const logger = {
   info: (message, meta = {}) => console.log(`[ADMIN] ${message}`, meta),
@@ -545,7 +546,6 @@ const deleteBanner = asyncHandler(async (req, res) => {
   if (!banner) return ApiResponse.notFound(res, 'Banner not found');
 
   if (banner.image) {
-    const cloudinaryService = require('../services/cloudinary.service');
     await cloudinaryService.deleteImage(banner.image);
   }
 
@@ -701,7 +701,7 @@ const processPayout = asyncHandler(async (req, res) => {
   ApiResponse.success(res, { payout: payoutRecord }, 'Payout processed successfully');
 });
 
-module.exports = {
+export default {
   getDashboard,
   getAnalytics,
   getAllUsers,

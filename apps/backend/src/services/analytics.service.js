@@ -4,10 +4,10 @@
  * @module services/analytics.service
  */
 
-const Analytics = require('../models/Analytics');
-const Order = require('../models/Order');
-const User = require('../models/User');
-const Restaurant = require('../models/Restaurant');
+import Analytics from '../models/Analytics.js';
+import Order from '../models/Order.js';
+import User from '../models/User.js';
+import Restaurant from '../models/Restaurant.js';
 
 class AnalyticsService {
   async getOrderTrends(startDate, endDate, granularity = 'day') {
@@ -258,4 +258,4 @@ class AnalyticsService {
   }
 }
 
-module.exports = new AnalyticsService();
+export default new AnalyticsService();

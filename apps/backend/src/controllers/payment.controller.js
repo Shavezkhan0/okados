@@ -1,10 +1,10 @@
-const Order = require('../models/Order');
-const Restaurant = require('../models/Restaurant');
-const User = require('../models/User');
-const ApiResponse = require('../utils/response');
-const asyncHandler = require('../utils/asyncHandler');
-const paymentService = require('../services/payment.service');
-const notificationService = require('../services/notification.service');
+import Order from '../models/Order.js';
+import Restaurant from '../models/Restaurant.js';
+import User from '../models/User.js';
+import ApiResponse from '../utils/response.js';
+import asyncHandler from '../utils/asyncHandler.js';
+import paymentService from '../services/payment.service.js';
+import notificationService from '../services/notification.service.js';
 
 const logger = {
   info: (msg, m = {}) => console.log(`[PAYMENT] ${msg}`, m),
@@ -155,7 +155,7 @@ const checkCodAvailability = asyncHandler(async (req, res) => {
   return ApiResponse.success(res, { codAvailable, message: codAvailable ? 'COD available' : 'COD not available' });
 });
 
-module.exports = {
+export default {
   createPaymentOrder,
   verifyPayment,
   handleWebhook,

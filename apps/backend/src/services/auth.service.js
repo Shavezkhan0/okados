@@ -4,9 +4,9 @@
  * @module services/auth.service
  */
 
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const crypto = require('crypto');
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
 
 const logger = {
   info: (message, meta = {}) => console.log(`[AUTH SERVICE] ${message}`, meta),
@@ -144,4 +144,4 @@ class AuthService {
   }
 }
 
-module.exports = new AuthService();
+export default new AuthService();

@@ -1,4 +1,4 @@
-const { body, param, query } = require('express-validator');
+import { body, param, query } from 'express-validator';
 
 const createProductValidator = [
   body('name')
@@ -255,7 +255,7 @@ const calculatePriceValidator = [
     .withMessage('Customizations must be an array'),
 ];
 
-module.exports = {
+export default {
   createProductValidator,
   updateProductValidator,
   productIdValidator,

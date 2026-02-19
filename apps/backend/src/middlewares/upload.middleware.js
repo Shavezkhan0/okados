@@ -4,9 +4,9 @@
  * @module middlewares/upload.middleware
  */
 
-const multer = require('multer');
-const path = require('path');
-const { v4: uuidv4 } = require('uuid');
+import multer from 'multer';
+import path from 'path';
+import { v4 as uuidv4 } from 'uuid';
 
 const ALLOWED_MIME_TYPES = [
   'image/jpeg',
@@ -216,7 +216,7 @@ const generateUniqueFilename = (originalName) => {
   return `${sanitized}_${uuidv4()}${ext}`;
 };
 
-module.exports = {
+export {
   upload,
   uploadSingle,
   uploadMultiple,

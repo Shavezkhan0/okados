@@ -3,7 +3,7 @@
  * @module sockets/order.socket
  */
 
-const {
+import {
   getIO,
   emitToUser,
   emitToRestaurant,
@@ -11,14 +11,14 @@ const {
   emitToAdmin,
   generateRoomName,
   ROOM_TYPES,
-} = require('./index');
+} from './index.js';
 
 const logger = {
   info: (message, meta = {}) => console.log(`[ORDER SOCKET] ${message}`, meta),
   error: (message, meta = {}) => console.error(`[ORDER SOCKET ERROR] ${message}`, meta),
 };
 
-const Order = require('../models/Order');
+import Order from '../models/Order.js';
 
 const emitNewOrder = async (restaurantId, order) => {
   try {
@@ -307,7 +307,7 @@ const emitOrderReminder = (orderId, userId, message) => {
   });
 };
 
-module.exports = {
+export {
   emitNewOrder,
   emitOrderStatusUpdate,
   emitOrderAccepted,

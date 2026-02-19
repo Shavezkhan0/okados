@@ -4,8 +4,8 @@
  * @module jobs/orderCleanup.job
  */
 
-const cron = require('node-cron');
-const Order = require('../models/Order');
+import cron from 'node-cron';
+import Order from '../models/Order.js';
 
 cron.schedule('0 0 * * *', async () => {
   console.log('Running order cleanup job...');
@@ -49,4 +49,4 @@ cron.schedule('*/30 * * * *', async () => {
   }
 });
 
-module.exports = {};
+export default {};

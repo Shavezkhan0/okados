@@ -4,12 +4,12 @@
  * @module controllers/product.controller
  */
 
-const Product = require('../models/Product');
-const Restaurant = require('../models/Restaurant');
-const ApiResponse = require('../utils/response');
-const asyncHandler = require('../utils/asyncHandler');
-const { getPaginationMeta } = require('../utils/helpers');
-const cloudinaryService = require('../services/cloudinary.service');
+import Product from '../models/Product.js';
+import Restaurant from '../models/Restaurant.js';
+import ApiResponse from '../utils/response.js';
+import asyncHandler from '../utils/asyncHandler.js';
+import { getPaginationMeta } from '../utils/helpers.js';
+import cloudinaryService from '../services/cloudinary.service.js';
 
 const logger = {
   info: (message, meta = {}) => console.log(`[PRODUCT CONTROLLER] ${message}`, meta),
@@ -709,7 +709,7 @@ const calculatePrice = asyncHandler(async (req, res) => {
   });
 });
 
-module.exports = {
+export default {
   getProductById,
   getRestaurantProducts,
   searchProducts,

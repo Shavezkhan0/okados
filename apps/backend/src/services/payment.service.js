@@ -1,5 +1,5 @@
-const Razorpay = require('razorpay');
-const crypto = require('crypto');
+import Razorpay from 'razorpay';
+import crypto from 'crypto';
 
 class PaymentService {
   constructor() {
@@ -211,4 +211,4 @@ class PaymentService {
   }
 }
 
-module.exports = new PaymentService();
+export default new PaymentService();

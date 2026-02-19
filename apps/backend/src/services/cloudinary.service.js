@@ -4,8 +4,8 @@
  * @module services/cloudinary.service
  */
 
-const cloudinary = require('../config/cloudinary');
-const streamifier = require('streamifier');
+import cloudinary from '../config/cloudinary.js';
+import streamifier from 'streamifier';
 
 const logger = {
   info: (message, meta = {}) => console.log(`[CLOUDINARY] ${message}`, meta),
@@ -332,4 +332,4 @@ class CloudinaryService {
   }
 }
 
-module.exports = new CloudinaryService();
+export default new CloudinaryService();

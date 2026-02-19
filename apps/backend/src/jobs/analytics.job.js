@@ -4,9 +4,9 @@
  * @module jobs/analytics.job
  */
 
-const cron = require('node-cron');
-const analyticsService = require('../services/analytics.service');
-const Restaurant = require('../models/Restaurant');
+import cron from 'node-cron';
+import analyticsService from '../services/analytics.service.js';
+import Restaurant from '../models/Restaurant.js';
 
 cron.schedule('0 1 * * *', async () => {
   console.log('Running daily analytics job...');
@@ -38,4 +38,4 @@ cron.schedule('0 * * * *', async () => {
   }
 });
 
-module.exports = {};
+export default {};

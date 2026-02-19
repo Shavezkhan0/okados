@@ -4,7 +4,8 @@
  * @module models/Review
  */
 
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import Restaurant from './Restaurant.js';
 
 const ratingsSchema = new mongoose.Schema({
   food: {
@@ -142,8 +143,6 @@ reviewSchema.methods.addResponse = async function (text, respondedBy) {
  * Update restaurant's average rating
  */
 reviewSchema.methods.updateRestaurantRating = async function () {
-  const Restaurant = require('./Restaurant');
-  
   const reviews = await this.constructor.find({
     restaurantId: this.restaurantId,
     isApproved: true,
@@ -222,4 +221,4 @@ reviewSchema.set('toObject', { virtuals: true });
 
 const Review = mongoose.model('Review', reviewSchema);
 
-module.exports = Review;
+export default Review;

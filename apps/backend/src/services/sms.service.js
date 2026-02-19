@@ -4,7 +4,7 @@
  * @module services/sms.service
  */
 
-const axios = require('axios');
+import axios from 'axios';
 
 const logger = {
   info: (message, meta = {}) => console.log(`[SMS SERVICE] ${message}`, meta),
@@ -250,4 +250,4 @@ class SmsService {
   }
 }
 
-module.exports = new SmsService();
+export default new SmsService();

@@ -1,7 +1,7 @@
-const jwt = require('jsonwebtoken');
-const ApiResponse = require('../utils/response');
-const User = require('../models/User');
-const authService = require('../services/auth.service');
+import jwt from 'jsonwebtoken';
+import ApiResponse from '../utils/response.js';
+import User from '../models/User.js';
+import authService from '../services/auth.service.js';
 
 const logger = {
   info: (message, meta = {}) => console.log(`[AUTH MIDDLEWARE] ${message}`, meta),
@@ -80,6 +80,7 @@ const authenticate = async (req, res, next) => {
     req.tokenId = decoded.tokenId;
     
     logger.info('User authenticated', { userId: user._id, role: user.role });
+    console.log('[AUTH MIDDLEWARE] Setting req.userId:', req.userId);
     next();
   } catch (error) {
     logger.error('Authentication error', { error: error.message, stack: error.stack });
@@ -110,4 +111,4 @@ const authorize = (...roles) => {
   };
 };
 
-module.exports = { authenticate, authorize };
+export { authenticate, authorize };

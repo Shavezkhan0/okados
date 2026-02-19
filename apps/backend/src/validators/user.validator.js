@@ -1,4 +1,4 @@
-const { body, param, query } = require('express-validator');
+import { body, param, query } from 'express-validator';
 
 const updateProfileValidator = [
   body('name').optional().trim().notEmpty().withMessage('Name cannot be empty'),
@@ -19,7 +19,7 @@ const addressIdValidator = [
   param('addressId').isMongoId().withMessage('Valid address ID is required'),
 ];
 
-module.exports = {
+export default {
   updateProfileValidator,
   addAddressValidator,
   addressIdValidator,

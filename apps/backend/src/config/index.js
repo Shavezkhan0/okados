@@ -1,9 +1,16 @@
-const connectDB = require('./database');
-const { connectRedis } = require('./redis');
-const cloudinary = require('./cloudinary');
-const { initFirebase } = require('./firebase');
+import { connectDB } from './database.js';
+import { connectRedis } from './redis.js';
+import cloudinary from './cloudinary.js';
+import { initFirebase } from './firebase.js';
 
-module.exports = {
+export {
+  connectDB,
+  connectRedis,
+  cloudinary,
+  initFirebase,
+};
+
+export default {
   connectDB,
   connectRedis,
   cloudinary,

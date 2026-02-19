@@ -3,16 +3,16 @@
  * @module jobs/index
  */
 
-const cron = require('node-cron');
+import cron from 'node-cron';
 
 const startJobs = () => {
   console.log('Starting job scheduler...');
 
-  require('./orderCleanup.job');
-  require('./analytics.job');
-  require('./notification.job');
+  import('./orderCleanup.job.js');
+  import('./analytics.job.js');
+  import('./notification.job.js');
 
   console.log('All jobs scheduled successfully');
 };
 
-module.exports = { startJobs };
+export { startJobs };

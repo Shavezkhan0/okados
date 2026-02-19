@@ -1,22 +1,18 @@
-/**
- * Review Routes
- * @module routes/review.routes
- */
-
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const reviewController = require('../controllers/review.controller');
-const auth = require('../middlewares/auth.middleware');
-const { isAdmin } = require('../middlewares/authorization.middleware');
+
+import reviewController from '../controllers/review.controller.js';
+import { authenticate } from '../middlewares/auth.middleware.js';
+import { isAdmin } from '../middlewares/authorization.middleware.js';
 
 router.get('/restaurant/:restaurantId', reviewController.getRestaurantReviews);
 router.get('/product/:productId', reviewController.getProductReviews);
-router.get('/my-reviews', auth.authenticate, reviewController.getMyReviews);
+router.get('/my-reviews', authenticate, reviewController.getMyReviews);
 
-router.post('/', auth.authenticate, reviewController.createReview);
-router.get('/', auth.authenticate, isAdmin, reviewController.getAllReviews);
-router.put('/:id', auth.authenticate, reviewController.updateReview);
-router.delete('/:id', auth.authenticate, reviewController.deleteReview);
-router.post('/:id/report', auth.authenticate, reviewController.reportReview);
+router.post('/', authenticate, reviewController.createReview);
+router.get('/', authenticate, isAdmin, reviewController.getAllReviews);
+router.put('/:id', authenticate, reviewController.updateReview);
+router.delete('/:id', authenticate, reviewController.deleteReview);
+router.post('/:id/report', authenticate, reviewController.reportReview);
 
-module.exports = router;
+export default router;

@@ -1,19 +1,15 @@
-/**
- * Upload Routes
- * @module routes/upload.routes
- */
-
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const uploadController = require('../controllers/upload.controller');
-const { authenticate } = require('../middlewares/auth.middleware');
-const { 
+
+import uploadController from '../controllers/upload.controller.js';
+import { authenticate } from '../middlewares/auth.middleware.js';
+import { 
   uploadSingle, 
   uploadMultiple, 
   validateImage, 
   validateMultipleImages,
   handleMulterError 
-} = require('../middlewares/upload.middleware');
+} from '../middlewares/upload.middleware.js';
 
 router.use(authenticate);
 
@@ -82,4 +78,4 @@ router.get(
   uploadController.getImageDetails
 );
 
-module.exports = router;
+export default router;

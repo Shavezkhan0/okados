@@ -1,15 +1,13 @@
-/**
- * Order Routes
- * @module routes/order.routes
- */
-
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const orderController = require('../controllers/order.controller');
-const { authenticate } = require('../middlewares/auth.middleware');
-const { authorize } = require('../middlewares/auth.middleware');
-const { isAdmin, isRestaurant } = require('../middlewares/authorization.middleware');
-const validate = require('../middlewares/validation.middleware');
+
+import orderController from '../controllers/order.controller.js';
+import { authenticate } from '../middlewares/auth.middleware.js';
+import { authorize } from '../middlewares/auth.middleware.js';
+import { isAdmin, isRestaurant } from '../middlewares/authorization.middleware.js';
+import validate from '../middlewares/validation.middleware.js';
+import orderValidator from '../validators/order.validator.js';
+
 const {
   createOrderValidator,
   orderIdValidator,
@@ -17,7 +15,7 @@ const {
   cancelOrderValidator,
   rateOrderValidator,
   orderListValidator,
-} = require('../validators/order.validator');
+} = orderValidator;
 
 router.use(authenticate);
 
@@ -39,4 +37,4 @@ router.put('/:id/accept', isRestaurant, validate(orderIdValidator), orderControl
 router.put('/:id/reject', isRestaurant, validate(orderIdValidator), orderController.rejectOrder);
 router.put('/:id/status', isRestaurant, validate(updateStatusValidator), orderController.updateOrderStatus);
 
-module.exports = router;
+export default router;

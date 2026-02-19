@@ -1,23 +1,22 @@
-/**
- * Server Entry Point
- * @module server
- */
+import 'dotenv/config';
 
-require('dotenv').config();
+import { fileURLToPath } from 'url';
+import path from 'path';
+import fs from 'fs';
+import http from 'http';
 
-const http = require('http');
-const fs = require('fs');
-const path = require('path');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const app = require('./app');
-const { connectDB } = require('./config/database');
+import app from './app.js';
+import { connectDB } from './config/database.js';
 console.log("redit 1");
-const { connectRedis } = require('./config/redis');
+import { connectRedis } from './config/redis.js';
 console.log("redit 2");
-const { initFirebase } = require('./config/firebase');
-const { initializeSocket } = require('./sockets');
-const { startJobs } = require('./jobs');
-const { logger } = require('./middlewares/error.middleware');
+import { initFirebase } from './config/firebase.js';
+import { initializeSocket } from './sockets/index.js';
+import { startJobs } from './jobs/index.js';
+import { logger } from './middlewares/error.middleware.js';
 
 const PORT = process.env.PORT || 5000;
 
@@ -66,7 +65,7 @@ const startServer = async () => {
       server.close(async () => {
         console.log('HTTP server closed');
         
-        const mongoose = require('mongoose');
+        const mongoose = (await import('mongoose')).default;
         await mongoose.connection.close();
         console.log('MongoDB connection closed');
         

@@ -1,0 +1,398 @@
+# Okados Backend API - Raw Test Data
+# Copy and paste these into Postman request bodies
+
+# ============================================
+# AUTH
+# ============================================
+
+# Register
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "phone": "+1234567890",
+  "password": "password123"
+}
+
+# Login
+{
+  "email": "john@example.com",
+  "password": "password123"
+}
+
+# Verify OTP
+{
+  "phone": "+1234567890",
+  "otp": "123456"
+}
+
+# Resend OTP
+{
+  "phone": "+1234567890"
+}
+
+# Refresh Token
+{
+  "refreshToken": "YOUR_REFRESH_TOKEN_HERE"
+}
+
+# Forgot Password
+{
+  "email": "john@example.com"
+}
+
+# Reset Password
+{
+  "token": "YOUR_RESET_TOKEN_HERE",
+  "password": "newpassword123"
+}
+
+# Change Password
+{
+  "currentPassword": "password123",
+  "newPassword": "newpassword123"
+}
+
+
+# ============================================
+# USERS
+# ============================================
+
+# Update Profile
+{
+  "name": "John Updated",
+  "phone": "+1234567890",
+  "profile": {
+    "avatar": "https://example.com/avatar.jpg"
+  }
+}
+
+# Add Address
+{
+  "label": "Home",
+  "addressLine1": "123 Main Street",
+  "addressLine2": "Apt 4",
+  "city": "New York",
+  "state": "NY",
+  "pincode": "10001",
+  "latitude": 40.7128,
+  "longitude": -74.0060,
+  "isDefault": true
+}
+
+# Update Address
+{
+  "label": "Work",
+  "addressLine1": "456 Office Blvd",
+  "city": "New York",
+  "state": "NY",
+  "pincode": "10002"
+}
+
+# Update FCM Token
+{
+  "fcmToken": "YOUR_FCM_TOKEN_HERE"
+}
+
+
+# ============================================
+# RESTAURANTS
+# ============================================
+
+# Register Restaurant
+{
+  "name": "My Restaurant",
+  "description": "Best food in town",
+  "logo": "https://example.com/logo.jpg",
+  "banner": "https://example.com/banner.jpg",
+  "contact": {
+    "phone": "+1234567890",
+    "email": "restaurant@example.com"
+  },
+  "address": {
+    "addressLine1": "123 Food Street",
+    "city": "New York",
+    "state": "NY",
+    "pincode": "10001",
+    "latitude": 40.7128,
+    "longitude": -74.0060
+  },
+  "cuisines": ["Italian", "Pizza", "Pasta"],
+  "deliveryRadius": 5,
+  "timing": {
+    "openTime": "09:00",
+    "closeTime": "22:00",
+    "workingDays": [0,1,2,3,4,5,6]
+  },
+  "pricing": {
+    "costForTwo": 500,
+    "deliveryFee": 50
+  }
+}
+
+# Update Restaurant
+{
+  "name": "Updated Restaurant Name",
+  "description": "Updated description",
+  "contact": {
+    "phone": "+1987654321"
+  }
+}
+
+# Toggle Restaurant Status
+{
+  "isOpen": true
+}
+
+# Update Bank Details
+{
+  "accountNumber": "1234567890",
+  "ifscCode": "ABCD0123456",
+  "accountHolderName": "Restaurant Owner",
+  "upiId": "restaurant@upi"
+}
+
+
+# ============================================
+# PRODUCTS
+# ============================================
+
+# Create Product
+{
+  "name": "Classic Burger",
+  "description": "Delicious beef burger with cheese",
+  "category": "Burgers",
+  "type": "non-veg",
+  "price": 250,
+  "discountedPrice": 199,
+  "image": "https://example.com/burger.jpg",
+  "preparationTime": 20,
+  "tags": ["bestseller", "popular"],
+  "customizations": [
+    {
+      "name": "Size",
+      "required": true,
+      "multiSelect": false,
+      "maxSelections": 1,
+      "options": [
+        {"name": "Regular", "price": 0},
+        {"name": "Large", "price": 50}
+      ]
+    }
+  ]
+}
+
+# Update Product
+{
+  "name": "Updated Burger",
+  "price": 299,
+  "isAvailable": true
+}
+
+# Bulk Update Products
+{
+  "products": [
+    {"productId": "PRODUCT_ID_1", "isAvailable": true},
+    {"productId": "PRODUCT_ID_2", "isAvailable": false}
+  ]
+}
+
+# Calculate Price
+{
+  "customizations": [
+    {
+      "name": "Size",
+      "selectedOptions": ["Large"]
+    }
+  ]
+}
+
+
+# ============================================
+# ORDERS
+# ============================================
+
+# Create Order
+{
+  "restaurantId": "RESTAURANT_ID_HERE",
+  "items": [
+    {
+      "productId": "PRODUCT_ID_HERE",
+      "quantity": 2,
+      "customizations": []
+    }
+  ],
+  "deliveryAddressId": "ADDRESS_ID_HERE",
+  "paymentMethod": "cod",
+  "couponCode": "SAVE20",
+  "instructions": "Please ring the doorbell"
+}
+
+# Cancel Order
+{
+  "reason": "Changed my mind"
+}
+
+# Rate Order
+{
+  "food": 5,
+  "delivery": 4,
+  "comment": "Great food and fast delivery!"
+}
+
+# Update Order Status
+{
+  "status": "preparing",
+  "note": "Order being prepared"
+}
+
+# Reject Order
+{
+  "reason": "Restaurant closed"
+}
+
+
+# ============================================
+# COUPONS
+# ============================================
+
+# Validate Coupon
+{
+  "code": "SAVE20",
+  "restaurantId": "RESTAURANT_ID_HERE",
+  "orderAmount": 500
+}
+
+# Create Coupon (Admin)
+{
+  "code": "SAVE20",
+  "description": "20% off on orders above 300",
+  "discountType": "percentage",
+  "discountValue": 20,
+  "minOrderAmount": 300,
+  "maxDiscountAmount": 100,
+  "validFrom": "2024-01-01",
+  "validUntil": "2024-12-31",
+  "usageLimit": 100,
+  "isActive": true
+}
+
+# Update Coupon
+{
+  "discountValue": 25,
+  "isActive": true
+}
+
+
+# ============================================
+# REVIEWS
+# ============================================
+
+# Create Review
+{
+  "restaurantId": "RESTAURANT_ID_HERE",
+  "productId": "PRODUCT_ID_HERE",
+  "orderId": "ORDER_ID_HERE",
+  "rating": 5,
+  "comment": "Amazing food! Highly recommended."
+}
+
+# Update Review
+{
+  "rating": 4,
+  "comment": "Updated comment"
+}
+
+# Report Review
+{
+  "reason": "Inappropriate content"
+}
+
+
+# ============================================
+# NOTIFICATIONS
+# ============================================
+
+# Update Notification Settings
+{
+  "push": true,
+  "email": false,
+  "sms": false,
+  "promotional": true,
+  "orderUpdates": true
+}
+
+
+# ============================================
+# PAYMENTS
+# ============================================
+
+# Create Payment Order
+{
+  "amount": 500,
+  "currency": "INR",
+  "receipt": "order-receipt-123"
+}
+
+# Verify Payment
+{
+  "razorpayOrderId": "ORDER_ID_HERE",
+  "razorpayPaymentId": "PAYMENT_ID_HERE",
+  "razorpaySignature": "SIGNATURE_HERE"
+}
+
+# Initiate Refund (Admin)
+{
+  "paymentId": "PAYMENT_ID_HERE",
+  "amount": 100,
+  "reason": "Customer request"
+}
+
+
+# ============================================
+# UPLOAD
+# ============================================
+
+# Upload Base64 Image
+{
+  "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
+}
+
+# Delete Image
+{
+  "publicId": "YOUR_CLOUDINARY_PUBLIC_ID"
+}
+
+
+# ============================================
+# ADMIN
+# ============================================
+
+# Update User (Admin)
+{
+  "name": "Updated Name",
+  "isActive": true
+}
+
+# Reject Restaurant (Admin)
+{
+  "reason": "Documents not verified"
+}
+
+# Update Commission (Admin)
+{
+  "rate": 15
+}
+
+# Create Banner (Admin)
+{
+  "title": "Summer Sale",
+  "image": "https://example.com/banner.jpg",
+  "link": "https://example.com/offer",
+  "isActive": true,
+  "order": 1
+}
+
+# Process Payout (Admin)
+{
+  "amount": 5000
+}

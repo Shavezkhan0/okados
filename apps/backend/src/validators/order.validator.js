@@ -1,4 +1,4 @@
-const { body, param, query } = require('express-validator');
+import { body, param, query } from 'express-validator';
 
 const createOrderValidator = [
   body('restaurantId')
@@ -172,7 +172,7 @@ const verifyPaymentValidator = [
     .withMessage('Razorpay signature is required'),
 ];
 
-module.exports = {
+export default {
   createOrderValidator,
   orderIdValidator,
   cancelOrderValidator,

@@ -1,11 +1,11 @@
-const USER_ROLES = {
+export const USER_ROLES = {
   USER: 'user',
   RESTAURANT: 'restaurant',
   ADMIN: 'admin',
   DELIVERY_PARTNER: 'delivery_partner',
 };
 
-const ORDER_STATUS = {
+export const ORDER_STATUS = {
   PENDING: 'pending',
   CONFIRMED: 'confirmed',
   PREPARING: 'preparing',
@@ -16,7 +16,7 @@ const ORDER_STATUS = {
   CANCELLED: 'cancelled',
 };
 
-const PAYMENT_STATUS = {
+export const PAYMENT_STATUS = {
   PENDING: 'pending',
   PROCESSING: 'processing',
   COMPLETED: 'completed',
@@ -24,13 +24,13 @@ const PAYMENT_STATUS = {
   REFUNDED: 'refunded',
 };
 
-const PAYMENT_METHODS = {
+export const PAYMENT_METHODS = {
   COD: 'cod',
   RAZORPAY: 'razorpay',
   WALLET: 'wallet',
 };
 
-const NOTIFICATION_TYPES = {
+export const NOTIFICATION_TYPES = {
   ORDER_PLACED: 'order_placed',
   ORDER_CONFIRMED: 'order_confirmed',
   ORDER_PREPARING: 'order_preparing',
@@ -43,14 +43,14 @@ const NOTIFICATION_TYPES = {
   GENERAL: 'general',
 };
 
-const RESTAURANT_STATUS = {
+export const RESTAURANT_STATUS = {
   PENDING: 'pending',
   APPROVED: 'approved',
   REJECTED: 'rejected',
   SUSPENDED: 'suspended',
 };
 
-const PRODUCT_CATEGORIES = {
+export const PRODUCT_CATEGORIES = {
   MAIN_COURSE: 'main_course',
   STARTER: 'starter',
   DESSERT: 'dessert',
@@ -58,13 +58,13 @@ const PRODUCT_CATEGORIES = {
   SNACK: 'snack',
 };
 
-const SLOTS = {
+export const SLOTS = {
   BREAKFAST: { start: '08:00', end: '11:00' },
   LUNCH: { start: '12:00', end: '15:00' },
   DINNER: { start: '19:00', end: '22:00' },
 };
 
-const HTTP_STATUS_CODES = {
+export const HTTP_STATUS_CODES = {
   OK: 200,
   CREATED: 201,
   ACCEPTED: 202,
@@ -78,16 +78,4 @@ const HTTP_STATUS_CODES = {
   TOO_MANY_REQUESTS: 429,
   INTERNAL_SERVER_ERROR: 500,
   SERVICE_UNAVAILABLE: 503,
-};
-
-module.exports = {
-  USER_ROLES,
-  ORDER_STATUS,
-  PAYMENT_STATUS,
-  PAYMENT_METHODS,
-  NOTIFICATION_TYPES,
-  RESTAURANT_STATUS,
-  PRODUCT_CATEGORIES,
-  SLOTS,
-  HTTP_STATUS_CODES,
 };
