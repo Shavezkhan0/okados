@@ -1,22 +1,17 @@
-/**
- * Routes Index
- * @module routes
- */
-
-const express = require('express');
+import express from 'express';
 const router = express.Router();
 
-const authRoutes = require('./auth.routes');
-const userRoutes = require('./user.routes');
-const restaurantRoutes = require('./restaurant.routes');
-const productRoutes = require('./product.routes');
-const orderRoutes = require('./order.routes');
-const paymentRoutes = require('./payment.routes');
-const couponRoutes = require('./coupon.routes');
-const reviewRoutes = require('./review.routes');
-const notificationRoutes = require('./notification.routes');
-const adminRoutes = require('./admin.routes');
-const uploadRoutes = require('./upload.routes');
+import authRoutes from './auth.routes.js';
+import userRoutes from './user.routes.js';
+import restaurantRoutes from './restaurant.routes.js';
+import productRoutes from './product.routes.js';
+import orderRoutes from './order.routes.js';
+import paymentRoutes from './payment.routes.js';
+import couponRoutes from './coupon.routes.js';
+import reviewRoutes from './review.routes.js';
+import notificationRoutes from './notification.routes.js';
+import adminRoutes from './admin.routes.js';
+import uploadRoutes from './upload.routes.js';
 
 router.use('/auth', authRoutes);
 router.use('/users', userRoutes);
@@ -38,4 +33,4 @@ router.get('/health', (req, res) => {
   });
 });
 
-module.exports = router;
+export default router;

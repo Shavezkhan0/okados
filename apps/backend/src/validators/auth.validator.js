@@ -1,4 +1,4 @@
-const { body, param, query } = require('express-validator');
+import { body, param, query } from 'express-validator';
 
 const registerValidator = [
   body('name')
@@ -145,7 +145,7 @@ const addressValidator = [
     .withMessage('Invalid longitude'),
 ];
 
-module.exports = {
+export default {
   registerValidator,
   loginValidator,
   verifyOTPValidator,

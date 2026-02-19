@@ -3,21 +3,22 @@
  * @module sockets/tracking.socket
  */
 
-const {
+import {
   getIO,
   emitToUser,
   emitToOrder,
   emitToAdmin,
   generateRoomName,
   ROOM_TYPES,
-} = require('./index');
+  emitToRoom,
+} from './index.js';
 
 const logger = {
   info: (message, meta = {}) => console.log(`[TRACKING SOCKET] ${message}`, meta),
   error: (message, meta = {}) => console.error(`[TRACKING SOCKET ERROR] ${message}`, meta),
 };
 
-const Order = require('../models/Order');
+import Order from '../models/Order.js';
 
 const activeTrackers = new Map();
 
@@ -318,7 +319,7 @@ const setupTrackingSocketHandlers = (socket) => {
   });
 };
 
-module.exports = {
+export {
   subscribeToLocation,
   unsubscribeFromLocation,
   emitLocationUpdate,

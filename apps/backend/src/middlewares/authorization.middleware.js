@@ -1,5 +1,5 @@
-const ApiResponse = require('../utils/response');
-const { USER_ROLES } = require('../utils/constants');
+import ApiResponse from '../utils/response.js';
+import { USER_ROLES } from '../utils/constants.js';
 
 const authorize = (...roles) => {
   return (req, res, next) => {
@@ -24,4 +24,4 @@ const isDeliveryPartner = authorize(USER_ROLES.DELIVERY_PARTNER);
 const isUser = authorize(USER_ROLES.USER);
 const isAdminOrRestaurant = authorize(USER_ROLES.ADMIN, USER_ROLES.RESTAURANT);
 
-module.exports = { authorize, isAdmin, isRestaurant, isDeliveryPartner, isUser, isAdminOrRestaurant };
+export { authorize, isAdmin, isRestaurant, isDeliveryPartner, isUser, isAdminOrRestaurant };

@@ -3,7 +3,7 @@
  * @module sockets/notification.socket
  */
 
-const {
+import {
   getIO,
   emitToUser,
   emitToAdmin,
@@ -11,15 +11,15 @@ const {
   broadcastToAll,
   isUserOnline,
   getOnlineUsersCount,
-} = require('./index');
+} from './index.js';
 
 const logger = {
   info: (message, meta = {}) => console.log(`[NOTIFICATION SOCKET] ${message}`, meta),
   error: (message, meta = {}) => console.error(`[NOTIFICATION SOCKET ERROR] ${message}`, meta),
 };
 
-const User = require('../models/User');
-const Notification = require('../models/Notification');
+import User from '../models/User.js';
+import Notification from '../models/Notification.js';
 
 const NOTIFICATION_TYPES = {
   ORDER: 'order',
@@ -283,7 +283,7 @@ const getUnreadCount = async (userId) => {
   return Notification.countDocuments({ user: userId, read: false });
 };
 
-module.exports = {
+export {
   emitNotification,
   emitOrderNotification,
   emitPromotionNotification,

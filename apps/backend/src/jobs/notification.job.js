@@ -4,9 +4,9 @@
  * @module jobs/notification.job
  */
 
-const cron = require('node-cron');
-const Notification = require('../models/Notification');
-const User = require('../models/User');
+import cron from 'node-cron';
+import Notification from '../models/Notification.js';
+import User from '../models/User.js';
 
 cron.schedule('0 9 * * *', async () => {
   console.log('Running morning notification job...');
@@ -78,7 +78,6 @@ cron.schedule('0 0 * * 0', async () => {
     const users = await User.find({ isActive: true, role: 'customer' }).limit(100);
 
     for (const user of users) {
-      const Notification = require('../models/Notification');
       const weeklyNotifications = await Notification.countDocuments({
         user: user._id,
         createdAt: { $gte: sevenDaysAgo },
@@ -100,4 +99,4 @@ cron.schedule('0 0 * * 0', async () => {
   }
 });
 
-module.exports = {};
+export default {};

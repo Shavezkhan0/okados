@@ -4,14 +4,14 @@
  * @module controllers/notification.controller
  */
 
-const Notification = require('../models/Notification');
-const User = require('../models/User');
-const ApiResponse = require('../utils/response');
-const asyncHandler = require('../utils/asyncHandler');
-const { getPaginationMeta } = require('../utils/helpers');
-const notificationService = require('../services/notification.service');
-const emailService = require('../services/email.service');
-const smsService = require('../services/sms.service');
+import Notification from '../models/Notification.js';
+import User from '../models/User.js';
+import ApiResponse from '../utils/response.js';
+import asyncHandler from '../utils/asyncHandler.js';
+import { getPaginationMeta } from '../utils/helpers.js';
+import notificationService from '../services/notification.service.js';
+import emailService from '../services/email.service.js';
+import smsService from '../services/sms.service.js';
 
 const logger = {
   info: (message, meta = {}) => console.log(`[NOTIFICATION CONTROLLER] ${message}`, meta),
@@ -405,7 +405,7 @@ const cleanupOldNotifications = asyncHandler(async (req, res) => {
   ApiResponse.success(res, { deletedCount: result.deletedCount }, 'Old notifications cleaned up');
 });
 
-module.exports = {
+export default {
   getNotifications,
   getUnreadCount,
   markAsRead,

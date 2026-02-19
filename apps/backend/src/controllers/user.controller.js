@@ -1,31 +1,27 @@
-/**
- * User Controller
- * Handles user-related operations
- * @module controllers/user.controller
- */
+import User from '../models/User.js';
+import ApiResponse from '../utils/response.js';
+import asyncHandler from '../utils/asyncHandler.js';
 
-const User = require('../models/User');
-const ApiResponse = require('../utils/response');
-const asyncHandler = require('../utils/asyncHandler');
-
-/**
- * @desc Get current user profile
- * @route GET /api/v1/users/profile
- * @access Private
- */
 const getProfile = asyncHandler(async (req, res) => {
+  console.log('[USER CONTROLLER] getProfile called', { userId: req.userId });
+  
+  if (!req.userId) {
+    console.log('[USER CONTROLLER] No userId in request');
+    return ApiResponse.unauthorized(res, 'User ID not found');
+  }
+  
+  console.log('[USER CONTROLLER] Finding user...');
   const user = await User.findById(req.userId);
+  console.log('[USER CONTROLLER] User found:', user ? 'YES' : 'NO');
+  
   if (!user) {
     return ApiResponse.notFound(res, 'User not found');
   }
+  
+  console.log('[USER CONTROLLER] Sending response');
   ApiResponse.success(res, { user });
 });
 
-/**
- * @desc Update user profile
- * @route PUT /api/v1/users/profile
- * @access Private
- */
 const updateProfile = asyncHandler(async (req, res) => {
   const { name, phone, profile } = req.body;
 
@@ -45,11 +41,6 @@ const updateProfile = asyncHandler(async (req, res) => {
   ApiResponse.success(res, { user }, 'Profile updated successfully');
 });
 
-/**
- * @desc Add new address
- * @route POST /api/v1/users/address
- * @access Private
- */
 const addAddress = asyncHandler(async (req, res) => {
   const { label, addressLine1, addressLine2, city, state, pincode, coordinates, isDefault } = req.body;
 
@@ -80,11 +71,6 @@ const addAddress = asyncHandler(async (req, res) => {
   ApiResponse.created(res, { addresses: user.profile.addresses }, 'Address added successfully');
 });
 
-/**
- * @desc Update address
- * @route PUT /api/v1/users/address/:addressId
- * @access Private
- */
 const updateAddress = asyncHandler(async (req, res) => {
   const { addressId } = req.params;
   const { label, addressLine1, addressLine2, city, state, pincode, coordinates, isDefault } = req.body;
@@ -119,11 +105,6 @@ const updateAddress = asyncHandler(async (req, res) => {
   ApiResponse.success(res, { addresses: user.profile.addresses }, 'Address updated successfully');
 });
 
-/**
- * @desc Delete address
- * @route DELETE /api/v1/users/address/:addressId
- * @access Private
- */
 const deleteAddress = asyncHandler(async (req, res) => {
   const { addressId } = req.params;
 
@@ -149,11 +130,6 @@ const deleteAddress = asyncHandler(async (req, res) => {
   ApiResponse.success(res, { addresses: user.profile.addresses }, 'Address deleted successfully');
 });
 
-/**
- * @desc Get all addresses
- * @route GET /api/v1/users/addresses
- * @access Private
- */
 const getAddresses = asyncHandler(async (req, res) => {
   const user = await User.findById(req.userId);
   if (!user) {
@@ -162,11 +138,6 @@ const getAddresses = asyncHandler(async (req, res) => {
   ApiResponse.success(res, { addresses: user.profile.addresses });
 });
 
-/**
- * @desc Update FCM token
- * @route PUT /api/v1/users/fcm-token
- * @access Private
- */
 const updateFCMToken = asyncHandler(async (req, res) => {
   const { fcmToken } = req.body;
 
@@ -183,11 +154,6 @@ const updateFCMToken = asyncHandler(async (req, res) => {
   ApiResponse.success(res, {}, 'FCM token updated successfully');
 });
 
-/**
- * @desc Add to favorites
- * @route POST /api/v1/users/favorites/:restaurantId
- * @access Private
- */
 const addToFavorites = asyncHandler(async (req, res) => {
   const { restaurantId } = req.params;
 
@@ -204,11 +170,6 @@ const addToFavorites = asyncHandler(async (req, res) => {
   ApiResponse.success(res, { favorites: user.favouriteRestaurants }, 'Added to favorites');
 });
 
-/**
- * @desc Remove from favorites
- * @route DELETE /api/v1/users/favorites/:restaurantId
- * @access Private
- */
 const removeFromFavorites = asyncHandler(async (req, res) => {
   const { restaurantId } = req.params;
 
@@ -223,11 +184,6 @@ const removeFromFavorites = asyncHandler(async (req, res) => {
   ApiResponse.success(res, { favorites: user.favouriteRestaurants }, 'Removed from favorites');
 });
 
-/**
- * @desc Get favorites
- * @route GET /api/v1/users/favorites
- * @access Private
- */
 const getFavorites = asyncHandler(async (req, res) => {
   const user = await User.findById(req.userId).populate('favouriteRestaurants');
   if (!user) {
@@ -236,7 +192,20 @@ const getFavorites = asyncHandler(async (req, res) => {
   ApiResponse.success(res, { favorites: user.favouriteRestaurants });
 });
 
-module.exports = {
+export {
+  getProfile,
+  updateProfile,
+  addAddress,
+  updateAddress,
+  deleteAddress,
+  getAddresses,
+  updateFCMToken,
+  addToFavorites,
+  removeFromFavorites,
+  getFavorites,
+};
+
+export default {
   getProfile,
   updateProfile,
   addAddress,

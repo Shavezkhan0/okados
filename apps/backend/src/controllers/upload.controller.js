@@ -4,9 +4,9 @@
  * @module controllers/upload.controller
  */
 
-const ApiResponse = require('../utils/response');
-const asyncHandler = require('../utils/asyncHandler');
-const cloudinaryService = require('../services/cloudinary.service');
+import ApiResponse from '../utils/response.js';
+import asyncHandler from '../utils/asyncHandler.js';
+import cloudinaryService from '../services/cloudinary.service.js';
 
 const logger = {
   info: (message, meta = {}) => console.log(`[UPLOAD CONTROLLER] ${message}`, meta),
@@ -356,7 +356,7 @@ const uploadBase64Image = asyncHandler(async (req, res) => {
   }, 'Image uploaded successfully');
 });
 
-module.exports = {
+export default {
   uploadImage,
   uploadMultipleImages,
   uploadRestaurantImage,

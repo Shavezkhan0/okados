@@ -4,7 +4,7 @@
  * @module models/Product
  */
 
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const customizationOptionSchema = new mongoose.Schema({
   name: {
@@ -310,4 +310,4 @@ productSchema.set('toObject', { virtuals: true });
 
 const Product = mongoose.model('Product', productSchema);
 
-module.exports = Product;
+export default Product;

@@ -4,14 +4,14 @@
  * @module controllers/restaurant.controller
  */
 
-const Restaurant = require('../models/Restaurant');
-const Order = require('../models/Order');
-const Review = require('../models/Review');
-const User = require('../models/User');
-const ApiResponse = require('../utils/response');
-const asyncHandler = require('../utils/asyncHandler');
-const { getPaginationMeta } = require('../utils/helpers');
-const notificationService = require('../services/notification.service');
+import Restaurant from '../models/Restaurant.js';
+import Order from '../models/Order.js';
+import Review from '../models/Review.js';
+import User from '../models/User.js';
+import ApiResponse from '../utils/response.js';
+import asyncHandler from '../utils/asyncHandler.js';
+import { getPaginationMeta } from '../utils/helpers.js';
+import notificationService from '../services/notification.service.js';
 
 const logger = {
   info: (message, meta = {}) => console.log(`[RESTAURANT CONTROLLER] ${message}`, meta),
@@ -755,7 +755,7 @@ const registerRestaurant = asyncHandler(async (req, res) => {
   }, 'Restaurant registered successfully. Pending approval.');
 });
 
-module.exports = {
+export default {
   getAllRestaurants,
   getNearbyRestaurants,
   getRestaurantBySlug,

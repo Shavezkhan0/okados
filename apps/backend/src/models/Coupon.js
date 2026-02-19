@@ -4,7 +4,8 @@
  * @module models/Coupon
  */
 
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import Order from './Order.js';
 
 const couponSchema = new mongoose.Schema({
   code: {
@@ -114,7 +115,6 @@ couponSchema.methods.canBeUsed = async function (userId) {
     return { valid: false, message: 'Coupon is not valid or has expired' };
   }
 
-  const Order = require('./Order');
   const userUsageCount = await Order.countDocuments({
     'coupon.code': this.code,
     userId: userId,
@@ -220,4 +220,4 @@ couponSchema.statics.findValidCoupons = function (restaurantId) {
 
 const Coupon = mongoose.model('Coupon', couponSchema);
 
-module.exports = Coupon;
+export default Coupon;

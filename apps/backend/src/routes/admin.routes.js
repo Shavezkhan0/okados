@@ -1,15 +1,11 @@
-/**
- * Admin Routes
- * @module routes/admin.routes
- */
-
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const adminController = require('../controllers/admin.controller');
-const auth = require('../middlewares/auth.middleware');
-const { isAdmin } = require('../middlewares/authorization.middleware');
 
-router.use(auth.authenticate, isAdmin);
+import adminController from '../controllers/admin.controller.js';
+import { authenticate } from '../middlewares/auth.middleware.js';
+import { isAdmin } from '../middlewares/authorization.middleware.js';
+
+router.use(authenticate, isAdmin);
 
 router.get('/dashboard', adminController.getDashboard);
 router.get('/analytics', adminController.getAnalytics);
@@ -56,4 +52,4 @@ router.get('/revenue', adminController.getRevenueAnalytics);
 router.get('/payouts/pending', adminController.getPayoutsPending);
 router.post('/payouts/:restaurantId', adminController.processPayout);
 
-module.exports = router;
+export default router;

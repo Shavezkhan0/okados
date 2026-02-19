@@ -1,9 +1,8 @@
-const redis = require("redis");
+import { createClient } from 'redis';
 
-const redisClient = redis.createClient({
+const redisClient = createClient({
   url: process.env.REDIS_URL,
   socket: {
-    // tls: true, // REQUIRED for Redis Cloud
     reconnectStrategy: (retries) => {
       if (retries > 10) {
         console.error("Redis reconnect failed");
@@ -22,7 +21,7 @@ redisClient.on("connect", () =>
   console.log("✅ Redis Cloud Connected")
 );
 
-const connectRedis = async () => {
+export const connectRedis = async () => {
   try {
     await redisClient.connect();
   } catch (error) {
@@ -31,4 +30,5 @@ const connectRedis = async () => {
   }
 };
 
-module.exports = { redisClient, connectRedis };
+export { redisClient };
+export default { redisClient, connectRedis };

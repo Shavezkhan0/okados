@@ -1,4 +1,4 @@
-const axios = require('axios');
+import axios from 'axios';
 
 class GeocodingService {
   async getCoordinates(address) {
@@ -82,4 +82,4 @@ class GeocodingService {
   }
 }
 
-module.exports = new GeocodingService();
+export default new GeocodingService();

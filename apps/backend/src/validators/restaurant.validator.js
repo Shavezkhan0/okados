@@ -1,4 +1,4 @@
-const { body, param, query } = require('express-validator');
+import { body, param, query } from 'express-validator';
 
 const restaurantRegistrationValidator = [
   body('name')
@@ -314,7 +314,7 @@ const searchRestaurantsValidator = [
     .withMessage('Limit must be between 1 and 50'),
 ];
 
-module.exports = {
+export default {
   restaurantRegistrationValidator,
   restaurantUpdateValidator,
   restaurantListValidator,

@@ -4,7 +4,7 @@
  * @module services/email.service
  */
 
-const nodemailer = require('nodemailer');
+import nodemailer from 'nodemailer';
 const logger = {
   info: (message, meta = {}) => console.log(`[EMAIL SERVICE] ${message}`, meta),
   error: (message, meta = {}) => console.error(`[EMAIL SERVICE ERROR] ${message}`, meta),
@@ -422,7 +422,7 @@ class EmailService {
       </html>
     `;
 
-    const owner = await require('../models/User').findById(restaurant.ownerId);
+    const owner = await require('../models/User.js').findById(restaurant.ownerId);
     if (owner?.email) {
       return this.sendEmail(owner.email, subject, html);
     }
@@ -484,7 +484,7 @@ class EmailService {
       </html>
     `;
 
-    const owner = await require('../models/User').findById(restaurant.ownerId);
+    const owner = await require('../models/User.js').findById(restaurant.ownerId);
     if (owner?.email) {
       return this.sendEmail(owner.email, subject, html);
     }
@@ -558,4 +558,4 @@ class EmailService {
   }
 }
 
-module.exports = new EmailService();
+export default new EmailService();

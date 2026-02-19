@@ -1,4 +1,4 @@
-const winston = require('winston');
+import winston from 'winston';
 
 const logger = winston.createLogger({
   level: process.env.LOG_LEVEL || 'info',
@@ -65,4 +65,4 @@ const notFound = (req, res, next) => {
   next(error);
 };
 
-module.exports = { errorHandler, notFound, logger };
+export { errorHandler, notFound, logger };

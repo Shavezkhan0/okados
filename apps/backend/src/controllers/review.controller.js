@@ -4,13 +4,13 @@
  * @module controllers/review.controller
  */
 
-const Review = require('../models/Review');
-const Order = require('../models/Order');
-const Product = require('../models/Product');
-const Restaurant = require('../models/Restaurant');
-const ApiResponse = require('../utils/response');
-const asyncHandler = require('../utils/asyncHandler');
-const { getPaginationMeta } = require('../utils/helpers');
+import Review from '../models/Review.js';
+import Order from '../models/Order.js';
+import Product from '../models/Product.js';
+import Restaurant from '../models/Restaurant.js';
+import ApiResponse from '../utils/response.js';
+import asyncHandler from '../utils/asyncHandler.js';
+import { getPaginationMeta } from '../utils/helpers.js';
 
 /**
  * @desc Create review
@@ -240,7 +240,7 @@ const getAllReviews = asyncHandler(async (req, res) => {
   ApiResponse.paginated(res, { reviews }, pagination);
 });
 
-module.exports = {
+export default {
   createReview,
   getRestaurantReviews,
   getProductReviews,

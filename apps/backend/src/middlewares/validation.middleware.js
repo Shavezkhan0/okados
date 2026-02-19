@@ -1,5 +1,5 @@
-const { validationResult } = require('express-validator');
-const ApiResponse = require('../utils/response');
+import { validationResult } from 'express-validator';
+import ApiResponse from '../utils/response.js';
 
 const validate = (validations) => {
   return async (req, res, next) => {
@@ -19,4 +19,4 @@ const validate = (validations) => {
   };
 };
 
-module.exports = validate;
+export default validate;

@@ -1,14 +1,12 @@
-/**
- * Product Routes
- * @module routes/product.routes
- */
-
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const productController = require('../controllers/product.controller');
-const { authenticate } = require('../middlewares/auth.middleware');
-const { isRestaurant } = require('../middlewares/authorization.middleware');
-const validate = require('../middlewares/validation.middleware');
+
+import productController from '../controllers/product.controller.js';
+import { authenticate } from '../middlewares/auth.middleware.js';
+import { isRestaurant } from '../middlewares/authorization.middleware.js';
+import validate from '../middlewares/validation.middleware.js';
+import productValidator from '../validators/product.validator.js';
+
 const {
   createProductValidator,
   updateProductValidator,
@@ -17,7 +15,7 @@ const {
   bulkUpdateValidator,
   reorderValidator,
   searchValidator,
-} = require('../validators/product.validator');
+} = productValidator;
 
 router.get('/search', validate(searchValidator), productController.searchProducts);
 router.get('/categories', productController.getCategories);
@@ -33,4 +31,4 @@ router.put('/:id/toggle-availability', authenticate, isRestaurant, validate(prod
 router.post('/bulk-update', authenticate, isRestaurant, validate(bulkUpdateValidator), productController.bulkUpdateProducts);
 router.post('/reorder', authenticate, isRestaurant, validate(reorderValidator), productController.reorderProducts);
 
-module.exports = router;
+export default router;

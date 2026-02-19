@@ -4,18 +4,18 @@
  * @module controllers/order.controller
  */
 
-const mongoose = require('mongoose');
-const Order = require('../models/Order');
-const Product = require('../models/Product');
-const Restaurant = require('../models/Restaurant');
-const User = require('../models/User');
-const Coupon = require('../models/Coupon');
-const Review = require('../models/Review');
-const ApiResponse = require('../utils/response');
-const asyncHandler = require('../utils/asyncHandler');
-const { getPaginationMeta, calculateDistance } = require('../utils/helpers');
-const notificationService = require('../services/notification.service');
-const paymentService = require('../services/payment.service');
+import mongoose from 'mongoose';
+import Order from '../models/Order.js';
+import Product from '../models/Product.js';
+import Restaurant from '../models/Restaurant.js';
+import User from '../models/User.js';
+import Coupon from '../models/Coupon.js';
+import Review from '../models/Review.js';
+import ApiResponse from '../utils/response.js';
+import asyncHandler from '../utils/asyncHandler.js';
+import { getPaginationMeta, calculateDistance } from '../utils/helpers.js';
+import notificationService from '../services/notification.service.js';
+import paymentService from '../services/payment.service.js';
 
 const logger = {
   info: (message, meta = {}) => console.log(`[ORDER CONTROLLER] ${message}`, meta),
@@ -884,7 +884,7 @@ const verifyPayment = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = {
+export default {
   createOrder,
   getOrderById,
   getUserOrders,

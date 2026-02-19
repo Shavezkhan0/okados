@@ -4,7 +4,7 @@
  * @module models/Analytics
  */
 
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const ordersMetricsSchema = new mongoose.Schema({
   total: {
@@ -276,4 +276,4 @@ analyticsSchema.statics.getHourlyBreakdown = function (date, restaurantId) {
 
 const Analytics = mongoose.model('Analytics', analyticsSchema);
 
-module.exports = Analytics;
+export default Analytics;

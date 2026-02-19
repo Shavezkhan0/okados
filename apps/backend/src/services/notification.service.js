@@ -4,9 +4,9 @@
  * @module services/notification.service
  */
 
-const { admin } = require('../config/firebase');
-const Notification = require('../models/Notification');
-const User = require('../models/User');
+import { admin } from '../config/firebase.js';
+import Notification from '../models/Notification.js';
+import User from '../models/User.js';
 
 const logger = {
   info: (message, meta = {}) => console.log(`[NOTIFICATION SERVICE] ${message}`, meta),
@@ -426,4 +426,4 @@ class NotificationService {
   }
 }
 
-module.exports = new NotificationService();
+export default new NotificationService();

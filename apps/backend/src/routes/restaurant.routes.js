@@ -1,22 +1,20 @@
-/**
- * Restaurant Routes
- * @module routes/restaurant.routes
- */
-
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const restaurantController = require('../controllers/restaurant.controller');
-const { authenticate } = require('../middlewares/auth.middleware');
-const { authorize } = require('../middlewares/auth.middleware');
-const { isAdmin, isRestaurant } = require('../middlewares/authorization.middleware');
-const validate = require('../middlewares/validation.middleware');
+
+import restaurantController from '../controllers/restaurant.controller.js';
+import { authenticate } from '../middlewares/auth.middleware.js';
+import { authorize } from '../middlewares/auth.middleware.js';
+import { isAdmin, isRestaurant } from '../middlewares/authorization.middleware.js';
+import validate from '../middlewares/validation.middleware.js';
+import restaurantValidator from '../validators/restaurant.validator.js';
+
 const {
   restaurantListValidator,
   nearbyRestaurantsValidator,
   restaurantRegistrationValidator,
   restaurantUpdateValidator,
   bankDetailsValidator,
-} = require('../validators/restaurant.validator');
+} = restaurantValidator;
 
 router.get('/', validate(restaurantListValidator), restaurantController.getAllRestaurants);
 router.get('/nearby', validate(nearbyRestaurantsValidator), restaurantController.getNearbyRestaurants);
@@ -35,4 +33,4 @@ router.get('/me/orders', authenticate, isRestaurant, restaurantController.getMyO
 router.get('/me/analytics', authenticate, isRestaurant, restaurantController.getMyAnalytics);
 router.get('/me/earnings', authenticate, isRestaurant, restaurantController.getMyEarnings);
 
-module.exports = router;
+export default router;

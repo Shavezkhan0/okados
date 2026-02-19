@@ -1,13 +1,11 @@
-/**
- * Auth Routes
- * @module routes/auth.routes
- */
-
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const authController = require('../controllers/auth.controller');
-const { authenticate } = require('../middlewares/auth.middleware');
-const validate = require('../middlewares/validation.middleware');
+
+import authController from '../controllers/auth.controller.js';
+import { authenticate } from '../middlewares/auth.middleware.js';
+import validate from '../middlewares/validation.middleware.js';
+import authValidator from '../validators/auth.validator.js';
+
 const {
   registerValidator,
   loginValidator,
@@ -16,21 +14,22 @@ const {
   forgotPasswordValidator,
   resetPasswordValidator,
   changePasswordValidator,
-} = require('../validators/auth.validator');
+} = authValidator;
 
 const authLimiter = (req, res, next) => {
-  const rateLimit = require('express-rate-limit');
-  const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 5,
-    message: {
-      success: false,
-      message: 'Too many attempts. Please try again after 15 minutes',
-    },
-    standardHeaders: true,
-    legacyHeaders: false,
+  import('express-rate-limit').then(({ default: rateLimit }) => {
+    const limiter = rateLimit({
+      windowMs: 15 * 60 * 1000,
+      max: 5,
+      message: {
+        success: false,
+        message: 'Too many attempts. Please try again after 15 minutes',
+      },
+      standardHeaders: true,
+      legacyHeaders: false,
+    });
+    limiter(req, res, next);
   });
-  limiter(req, res, next);
 };
 
 router.post('/register', authLimiter, validate(registerValidator), authController.register);
@@ -44,4 +43,4 @@ router.put('/change-password', authenticate, validate(changePasswordValidator), 
 router.get('/me', authenticate, authController.getMe);
 router.post('/logout', authenticate, authController.logout);
 
-module.exports = router;
+export default router;

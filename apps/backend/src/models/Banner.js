@@ -4,7 +4,7 @@
  * @module models/Banner
  */
 
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const bannerSchema = new mongoose.Schema({
   title: {
@@ -174,4 +174,4 @@ bannerSchema.statics.reorder = async function (bannerIds) {
 
 const Banner = mongoose.model('Banner', bannerSchema);
 
-module.exports = Banner;
+export default Banner;

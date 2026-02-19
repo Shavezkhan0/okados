@@ -1,15 +1,19 @@
-const crypto = require('crypto');
-const jwt = require('jsonwebtoken');
+import crypto from 'crypto';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
+import Order from '../models/Order.js';
+import User from '../models/User.js';
+import Restaurant from '../models/Restaurant.js';
 
-const generateToken = (payload, secret, expiresIn) => {
+export const generateToken = (payload, secret, expiresIn) => {
   return jwt.sign(payload, secret, { expiresIn });
 };
 
-const verifyToken = (token, secret) => {
+export const verifyToken = (token, secret) => {
   return jwt.verify(token, secret);
 };
 
-const generateOTP = (length = 6) => {
+export const generateOTP = (length = 6) => {
   return Math.floor(
     Math.pow(10, length - 1) + Math.random() * Math.pow(10, length - 1) * 9
   )
@@ -17,7 +21,7 @@ const generateOTP = (length = 6) => {
     .padStart(length, '0');
 };
 
-const generateReferralCode = (length = 8) => {
+export const generateReferralCode = (length = 8) => {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   let result = '';
   for (let i = 0; i < length; i++) {
@@ -26,24 +30,22 @@ const generateReferralCode = (length = 8) => {
   return result;
 };
 
-const hashPassword = async (password) => {
-  const bcrypt = require('bcryptjs');
+export const hashPassword = async (password) => {
   const salt = await bcrypt.genSalt(10);
   return bcrypt.hash(password, salt);
 };
 
-const comparePassword = async (password, hashedPassword) => {
-  const bcrypt = require('bcryptjs');
+export const comparePassword = async (password, hashedPassword) => {
   return bcrypt.compare(password, hashedPassword);
 };
 
-const generateOrderId = () => {
+export const generateOrderId = () => {
   const timestamp = Date.now().toString(36).toUpperCase();
   const random = crypto.randomBytes(3).toString('hex').toUpperCase();
   return `OKD-${timestamp}-${random}`;
 };
 
-const calculateDistance = (lat1, lon1, lat2, lon2) => {
+export const calculateDistance = (lat1, lon1, lat2, lon2) => {
   const R = 6371;
   const dLat = ((lat2 - lat1) * Math.PI) / 180;
   const dLon = ((lon2 - lon1) * Math.PI) / 180;
@@ -57,19 +59,19 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
   return R * c;
 };
 
-const formatCurrency = (amount) => {
+export const formatCurrency = (amount) => {
   return new Intl.NumberFormat('en-IN', {
     style: 'currency',
     currency: process.env.CURRENCY || 'INR',
   }).format(amount);
 };
 
-const paginate = (query, page = 1, limit = 10) => {
+export const paginate = (query, page = 1, limit = 10) => {
   const skip = (page - 1) * limit;
   return query.skip(skip).limit(parseInt(limit));
 };
 
-const getPaginationMeta = (page, limit, total) => {
+export const getPaginationMeta = (page, limit, total) => {
   const totalPages = Math.ceil(total / limit);
   return {
     page: parseInt(page),
@@ -81,7 +83,7 @@ const getPaginationMeta = (page, limit, total) => {
   };
 };
 
-const exportToCSV = (data) => {
+export const exportToCSV = (data) => {
   if (!data || data.length === 0) return '';
   const headers = Object.keys(data[0]);
   const csvRows = [];
@@ -97,11 +99,7 @@ const exportToCSV = (data) => {
   return csvRows.join('\n');
 };
 
-const calculateDashboardStats = async () => {
-  const Order = require('../models/Order');
-  const User = require('../models/User');
-  const Restaurant = require('../models/Restaurant');
-
+export const calculateDashboardStats = async () => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const tomorrow = new Date(today);
@@ -125,7 +123,7 @@ const calculateDashboardStats = async () => {
   };
 };
 
-const generateSlug = (text) => {
+export const generateSlug = (text) => {
   return text
     .toLowerCase()
     .replace(/[^\w\s-]/g, '')
@@ -134,22 +132,22 @@ const generateSlug = (text) => {
     .trim();
 };
 
-const calculatePercentage = (value, total) => {
+export const calculatePercentage = (value, total) => {
   if (total === 0) return 0;
   return parseFloat(((value / total) * 100).toFixed(2));
 };
 
-const isValidEmail = (email) => {
+export const isValidEmail = (email) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 };
 
-const isValidPhone = (phone) => {
+export const isValidPhone = (phone) => {
   const phoneRegex = /^[6-9]\d{9}$/;
   return phoneRegex.test(phone);
 };
 
-const generateRandomString = (length = 10) => {
+export const generateRandomString = (length = 10) => {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let result = '';
   for (let i = 0; i < length; i++) {
@@ -158,7 +156,7 @@ const generateRandomString = (length = 10) => {
   return result;
 };
 
-const groupBy = (array, key) => {
+export const groupBy = (array, key) => {
   return array.reduce((result, item) => {
     const groupKey = typeof key === 'function' ? key(item) : item[key];
     (result[groupKey] = result[groupKey] || []).push(item);
@@ -166,9 +164,9 @@ const groupBy = (array, key) => {
   }, {});
 };
 
-const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+export const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-const retry = async (fn, retries = 3, delay = 1000) => {
+export const retry = async (fn, retries = 3, delay = 1000) => {
   let lastError;
   for (let i = 0; i < retries; i++) {
     try {
@@ -179,28 +177,4 @@ const retry = async (fn, retries = 3, delay = 1000) => {
     }
   }
   throw lastError;
-};
-
-module.exports = {
-  generateToken,
-  verifyToken,
-  generateOTP,
-  generateReferralCode,
-  hashPassword,
-  comparePassword,
-  generateOrderId,
-  calculateDistance,
-  formatCurrency,
-  paginate,
-  getPaginationMeta,
-  exportToCSV,
-  calculateDashboardStats,
-  generateSlug,
-  calculatePercentage,
-  isValidEmail,
-  isValidPhone,
-  generateRandomString,
-  groupBy,
-  sleep,
-  retry,
 };

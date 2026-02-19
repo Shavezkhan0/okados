@@ -4,7 +4,7 @@
  * @module models/Restaurant
  */
 
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const contactSchema = new mongoose.Schema({
   email: {
@@ -368,4 +368,4 @@ restaurantSchema.set('toObject', { virtuals: true });
 
 const Restaurant = mongoose.model('Restaurant', restaurantSchema);
 
-module.exports = Restaurant;
+export default Restaurant;

@@ -3,16 +3,16 @@
  * @module sockets/index
  */
 
-const { Server } = require('socket.io');
-const jwt = require('jsonwebtoken');
-const mongoose = require('mongoose');
-const User = require('../models/User');
-const Restaurant = require('../models/Restaurant');
+import { Server } from 'socket.io';
+import jwt from 'jsonwebtoken';
+import mongoose from 'mongoose';
+import User from '../models/User.js';
+import Restaurant from '../models/Restaurant.js';
 
-const { setupOrderSocketHandlers } = require('./order.socket');
-const { setupNotificationSocketHandlers } = require('./notification.socket');
-const { setupRestaurantSocketHandlers } = require('./restaurant.socket');
-const { setupTrackingSocketHandlers } = require('./tracking.socket');
+import { setupOrderSocketHandlers } from './order.socket.js';
+import { setupNotificationSocketHandlers } from './notification.socket.js';
+import { setupRestaurantSocketHandlers } from './restaurant.socket.js';
+import { setupTrackingSocketHandlers } from './tracking.socket.js';
 
 let io;
 
@@ -255,7 +255,7 @@ const getOnlineUsersCount = () => {
   return count;
 };
 
-module.exports = {
+export {
   initializeSocket,
   getIO,
   emitToUser,

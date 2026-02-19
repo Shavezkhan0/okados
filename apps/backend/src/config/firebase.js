@@ -1,4 +1,4 @@
-const admin = require('firebase-admin');
+import admin from 'firebase-admin';
 
 const firebaseConfig = {
   projectId: process.env.FIREBASE_PROJECT_ID,
@@ -9,7 +9,7 @@ const firebaseConfig = {
 
 let firebaseAdmin;
 
-const initFirebase = () => {
+export const initFirebase = () => {
   if (!admin.apps.length) {
     firebaseAdmin = admin.initializeApp({
       credential: admin.credential.cert(firebaseConfig),
@@ -20,4 +20,5 @@ const initFirebase = () => {
   return admin;
 };
 
-module.exports = { admin, initFirebase };
+export { admin, firebaseAdmin };
+export default { admin, initFirebase };

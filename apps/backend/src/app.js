@@ -1,20 +1,15 @@
-/**
- * Express Application Setup
- * @module app
- */
+import 'dotenv/config';
 
-require('dotenv').config();
+import express from 'express';
+import helmet from 'helmet';
+import cors from 'cors';
+import mongoSanitize from 'express-mongo-sanitize';
+import rateLimit from 'express-rate-limit';
+import compression from 'compression';
 
-const express = require('express');
-const helmet = require('helmet');
-const cors = require('cors');
-const mongoSanitize = require('express-mongo-sanitize');
-const rateLimit = require('express-rate-limit');
-const compression = require('compression');
-
-const routes = require('./routes');
-const { errorHandler, notFound } = require('./middlewares/error.middleware');
-const { generalLimiter } = require('./middlewares/rateLimit.middleware');
+import routes from './routes/index.js';
+import { errorHandler, notFound } from './middlewares/error.middleware.js';
+import { generalLimiter } from './middlewares/rateLimit.middleware.js';
 
 const app = express();
 
@@ -57,4 +52,4 @@ app.use(notFound);
 
 app.use(errorHandler);
 
-module.exports = app;
+export default app;
