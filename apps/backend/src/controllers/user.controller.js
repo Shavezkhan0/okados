@@ -42,7 +42,7 @@ const updateProfile = asyncHandler(async (req, res) => {
 });
 
 const addAddress = asyncHandler(async (req, res) => {
-  const { label, addressLine1, addressLine2, city, state, pincode, coordinates, isDefault } = req.body;
+  const { label, addressLine1, addressLine2, city, state, pincode, latitude, longitude, isDefault } = req.body;
 
   const user = await User.findById(req.userId);
   if (!user) {
@@ -55,8 +55,13 @@ const addAddress = asyncHandler(async (req, res) => {
     });
   }
 
+  const coordinates = latitude && longitude ? {
+    type: 'Point',
+    coordinates: [longitude, latitude],
+  } : undefined;
+
   user.profile.addresses.push({
-    label: label || 'home',
+    label: (label || 'home').toLowerCase(),
     addressLine1,
     addressLine2,
     city,
@@ -73,7 +78,7 @@ const addAddress = asyncHandler(async (req, res) => {
 
 const updateAddress = asyncHandler(async (req, res) => {
   const { addressId } = req.params;
-  const { label, addressLine1, addressLine2, city, state, pincode, coordinates, isDefault } = req.body;
+  const { label, addressLine1, addressLine2, city, state, pincode, latitude, longitude, isDefault } = req.body;
 
   const user = await User.findById(req.userId);
   if (!user) {
@@ -91,13 +96,18 @@ const updateAddress = asyncHandler(async (req, res) => {
     });
   }
 
-  if (label) address.label = label;
+  if (label) address.label = label.toLowerCase();
   if (addressLine1) address.addressLine1 = addressLine1;
   if (addressLine2 !== undefined) address.addressLine2 = addressLine2;
   if (city) address.city = city;
   if (state) address.state = state;
   if (pincode) address.pincode = pincode;
-  if (coordinates) address.coordinates = coordinates;
+  if (latitude && longitude) {
+    address.coordinates = {
+      type: 'Point',
+      coordinates: [longitude, latitude],
+    };
+  }
   if (isDefault !== undefined) address.isDefault = isDefault;
 
   await user.save();

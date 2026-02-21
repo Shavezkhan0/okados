@@ -7,7 +7,8 @@ const updateProfileValidator = [
 
 const addAddressValidator = [
   body('label').optional().trim(),
-  body('street').trim().notEmpty().withMessage('Street is required'),
+  body('addressLine1').trim().notEmpty().withMessage('Address line 1 is required'),
+  body('addressLine2').optional().trim(),
   body('city').trim().notEmpty().withMessage('City is required'),
   body('state').trim().notEmpty().withMessage('State is required'),
   body('pincode').trim().notEmpty().withMessage('Pincode is required'),

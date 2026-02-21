@@ -6,12 +6,12 @@ import { authenticate } from '../middlewares/auth.middleware.js';
 import validate from '../middlewares/validation.middleware.js';
 import userValidator from '../validators/user.validator.js';
 
-const { addAddressValidator, addressIdValidator } = userValidator;
+const { addAddressValidator, addressIdValidator, updateProfileValidator } = userValidator;
 
 router.use(authenticate);
 
 router.get('/profile', userController.getProfile);
-router.put('/profile', validate(addAddressValidator), userController.updateProfile);
+router.put('/profile', validate(updateProfileValidator), userController.updateProfile);
 
 router.get('/addresses', userController.getAddresses);
 router.post('/address', validate(addAddressValidator), userController.addAddress);
