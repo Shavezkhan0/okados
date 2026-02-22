@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "964111214501",
+    "project_id": "okados-9e679",
+    "storage_bucket": "okados-9e679.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:964111214501:android:15a946cd2162197b78aa4c",
+        "android_client_info": {
+          "package_name": "com.okados.user"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDU0Dxyfk2L0heQN3ik58NFXw9yfEAWwgk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

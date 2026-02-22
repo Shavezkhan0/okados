@@ -30,25 +30,19 @@ const register = asyncHandler(async (req, res) => {
   }
 
   const hashedPassword = await authService.hashPassword(password);
-  const { otp, expiresAt } = authService.generateOTP();
   const referralCode = authService.generateReferralCode();
 
+  // Bypass OTP - auto-verify user
   const user = await User.create({
     name,
     email: email.toLowerCase(),
     phone,
     password: hashedPassword,
     referralCode,
-    isVerified: false,
-    verification: {
-      otp,
-      otpExpiry: expiresAt,
-    },
+    isVerified: true,
   });
 
-  await smsService.sendOrderOTP(phone, otp);
-
-  logger.info('User registered successfully', { userId: user._id, email: user.email });
+  logger.info('User registered successfully (OTP bypassed)', { userId: user._id, email: user.email });
 
   const tokens = authService.generateTokens(user._id);
 
@@ -58,7 +52,7 @@ const register = asyncHandler(async (req, res) => {
     user: userResponse,
     accessToken: tokens.accessToken,
     refreshToken: tokens.refreshToken,
-  }, 'Registration successful. Please verify your phone number.');
+  }, 'Registration successful');
 });
 
 const login = asyncHandler(async (req, res) => {
